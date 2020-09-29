@@ -3,7 +3,7 @@ const { static } = require('express')
 const express = require('express')
 const app = express()
 const port = 3000
-const restaurantList = require('./restaurant.json')
+const restaurantList = require('./restaurant.json').results
 // Require handlebars
 const exphbs =require('express-handlebars')
 
@@ -16,7 +16,7 @@ app.set('view engine', 'handlebars')
 
 // Route setting
 app.get('/' ,(req,res) => {
-    res.render('index')
+    res.render('index',{restaurant: restaurantList} )
 })
 
 // Start and listen on express server
