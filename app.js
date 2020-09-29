@@ -3,7 +3,7 @@ const { static } = require('express')
 const express = require('express')
 const app = express()
 const port = 3000
-
+const restaurantList = require('./restaurant.json')
 // Require handlebars
 const exphbs =require('express-handlebars')
 
