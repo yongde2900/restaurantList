@@ -2,6 +2,7 @@
 // Require packages used in the project
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const restaurantList = require('./models/restaurant')
 const app = express()
 const port = 3000
@@ -21,8 +22,11 @@ app.use(express.static('public'))
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// Setting body-parser
+app.use(bodyParser.urlencoded({extended: true}))
+
 // Route setting
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
     restaurantList.find()
         .lean()
         .then( restaurants => {
@@ -32,6 +36,16 @@ app.get('/', (req,res) => {
         .catch(error => console.error(error))
 })
 
+app.get('/restaurants/new', (req, res) => {
+    res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+    const newRestaurant = req.body
+    return restaurantList.create(req.body)
+        .then(() => res.redirect('/'))
+        .catch(error => console.log(error))
+})
 // app.get('/restaurants/:restaurant_id', (req,res) => {
 //     const show_restaurant = restaurantList.filter( restaurant => restaurant.id === Number(req.params.restaurant_id))
 //     res.render('show', {restaurant: show_restaurant})
