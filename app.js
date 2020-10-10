@@ -1,15 +1,15 @@
-const { static } = require('express')
+
 // Require packages used in the project
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
-const restaurantList = require('./restaurant.json').results
 // Setting database
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 db.on('error',() => console.log('mongodb error'))
 db.once('open', () => console.log('mongodb connected',))
+
 // Require handlebars
 const exphbs =require('express-handlebars')
 
