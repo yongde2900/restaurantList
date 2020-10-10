@@ -9,6 +9,7 @@ db.once('open', () => {
     console.log('mongodb connected')
     for(let i = 0; i < restaurantList.length; i++){
         Restaurant.create({
+            id: restaurantList[i].id,
             name: restaurantList[i].name,
             name_en: restaurantList[i].name_en,
             category: restaurantList[i].category,
@@ -16,7 +17,7 @@ db.once('open', () => {
             location: restaurantList[i].location,
             phone: restaurantList[i].phone,
             google_map: restaurantList[i].google_map,
-            rating: restaurantList[i].reating,
+            rating: restaurantList[i].rating,
             description: restaurantList[i].description
         })
     }
