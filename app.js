@@ -46,10 +46,15 @@ app.post('/restaurants', (req, res) => {
         .then(() => res.redirect('/'))
         .catch(error => console.log(error))
 })
-// app.get('/restaurants/:restaurant_id', (req,res) => {
-//     const show_restaurant = restaurantList.filter( restaurant => restaurant.id === Number(req.params.restaurant_id))
-//     res.render('show', {restaurant: show_restaurant})
-// })
+app.get('/restaurants/:_id', (req,res) => {
+    const _id = req.params._id
+    restaurantList.findById(_id)
+        .lean()
+        .then( restaurants => {
+            console.log(restaurants)
+            res.render('show', {restaurants})})
+        .catch( error => console.log(error))
+})
 
 // app.get('/search', (req,res) => {
 //     const keyword = req.query.keyword
