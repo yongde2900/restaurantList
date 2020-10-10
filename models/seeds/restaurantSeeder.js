@@ -9,15 +9,15 @@ db.once('open', () => {
     console.log('mongodb connected')
     for(let i = 0; i < restaurantList.length; i++){
         Restaurant.create({
-            name: restaurantList.name,
-            name_en: restaurantList.name_en,
-            category: restaurantList.category,
-            image: restaurantList.image,
-            location: restaurantList.location,
-            phone: restaurantList.phone,
-            google_map: restaurantList.google_map,
-            rating: restaurantList.reating,
-            description: restaurantList.description
+            name: restaurantList[i].name,
+            name_en: restaurantList[i].name_en,
+            category: restaurantList[i].category,
+            image: restaurantList[i].image,
+            location: restaurantList[i].location,
+            phone: restaurantList[i].phone,
+            google_map: restaurantList[i].google_map,
+            rating: restaurantList[i].reating,
+            description: restaurantList[i].description
         })
     }
     console.log('done')
