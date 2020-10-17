@@ -41,7 +41,6 @@ app.get('/restaurants/new', (req, res) => {
 })
 
 app.post('/restaurants', (req, res) => {
-    const newRestaurant = req.body
     return restaurantList.create(req.body)
         .then(() => res.redirect('/'))
         .catch(error => console.log(error))
@@ -51,17 +50,58 @@ app.get('/restaurants/:_id', (req,res) => {
     restaurantList.findById(_id)
         .lean()
         .then( restaurants => {
-            console.log(restaurants)
+            // console.log(restaurants)
             res.render('show', {restaurants})})
         .catch( error => console.log(error))
 })
 
-// app.get('/search', (req,res) => {
-//     const keyword = req.query.keyword
-//     const restaurants = restaurantList.filter( restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()))
-//     res.render('index', {restaurant: restaurants, keyword: keyword})
-// })
+app.get('/restaurants/:_id/edit', (req, res) => {
+    const _id = req.params._id
+    restaurantList.findById(_id)
+        .lean()
+        .then( restaurants => {
+            console.log(restaurants)
+            res.render('edit', {restaurants})
+        })
+        .catch( error => console.log(error))
+})
+
+app.post('/restaurants/:_id/edit', (req, res) =>{
+    const _id = req.params._id
+    const edit_restaurant = req.body
+     restaurantList.findById(_id)
+        .then(restaurants => {
+            for(let i in edit_restaurant){
+                restaurants[i] = edit_restaurant[i]
+            }
+            return restaurants.save()
+        })
+        .then(() => res.redirect(`restaurants/${_id}`))
+        .catch( error => console.log(error))
+})
+
+app.post('/restaurants/:_id/delete', (req, res) => {
+    const _id = req.params._id
+    const delete_restaurant = req.body
+    return restaurantList.findById(_id)
+        .then(restaurants => restaurants.remove())
+        .then(() => res.redirect('/'))
+        .catch(error => console.log(error))
+})
+
+app.get('/search', (req,res) => {
+    const keyword = req.query.keyword
+    restaurantList.find({ name: keyword})
+        .lean()
+        .then(restaurants =>{
+            res.render('index', {restaurants: restaurants, keyword: keyword})
+        } )
+        .catch(error => console.log(error))
+
+})
+
 // Start and listen on express server
 app.listen(port, () => {
+    console.log(restaurantList)
     console.log(`Express is listening on http:localhost:${port}`)
 })

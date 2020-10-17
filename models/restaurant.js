@@ -32,6 +32,10 @@ const restaurantSchema = new Schema({
     description:{
         type: String,
         required: false
+    },
+    phone:{
+        type: String,
+        required: false
     }
     
 })

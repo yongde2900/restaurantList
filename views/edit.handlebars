@@ -1,0 +1,47 @@
+<form action="/restaurants/{{ restaurants._id }}/edit" method="POST">
+<div class="row ">
+        <div class="col">
+            <label for="name">名稱</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{restaurants.name}}" required>
+        </div>
+        <div class="col">
+            <label for="name_en">英文名稱</label>
+            <input type="text" class="form-control" id="name_en" name="name_en" value="{{restaurants.name_en}}">
+        </div>
+        <div class="col">
+            <label for="category">類型</label>
+            <input type="text" class="form-control" id="category" name="category" value="{{restaurants.category}}" required>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col">
+            <label for="image">圖片</label>
+            <input type="text" class="form-control" id="image" name="image" value="{{restaurants.image}}">
+        </div>
+        <div class="col">
+            <label for="location">位置</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{restaurants.location}}">
+        </div>
+        <div class="col">
+            <label for="phone">電話</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{restaurants.phone}}">
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-10">
+            <label for="google_map">Google map 連結</label>
+            <input type="text" class="form-control" id="google_map" name="google_map" value="{{restaurants.google_map}}">
+        </div>
+        <div class="col">
+            <label for="rating">評分</label>
+            <input type="number" max="5" min="0" step="0.1" class="form-control" id="rating" name="rating"  value="{{restaurants.rating}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="descriptnion">詳細資訊</label>
+            <textarea type="text" class="form-control" id="descriptnion" name="description" rows="3">{{restaurants.description}}</textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
