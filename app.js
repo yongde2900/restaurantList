@@ -89,16 +89,16 @@ app.post('/restaurants/:_id/delete', (req, res) => {
         .catch(error => console.log(error))
 })
 
-app.get('/search', (req,res) => {
-    const keyword = req.query.keyword
-    restaurantList.find({ name: keyword})
-        .lean()
-        .then(restaurants =>{
-            res.render('index', {restaurants: restaurants, keyword: keyword})
-        } )
-        .catch(error => console.log(error))
+// app.get('/search', (req,res) => {
+//     const keyword = req.query.keyword
+//     restaurantList.find({ name: keyword})
+//         .lean()
+//         .then(restaurants =>{
+//             res.render('index', {restaurants: restaurants, keyword: keyword})
+//         } )
+//         .catch(error => console.log(error))
 
-})
+// })
 
 // Start and listen on express server
 app.listen(port, () => {
