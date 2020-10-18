@@ -71,9 +71,7 @@ app.post('/restaurants/:_id/edit', (req, res) =>{
     const edit_restaurant = req.body
      restaurantList.findById(_id)
         .then(restaurants => {
-            for(let i in edit_restaurant){
-                restaurants[i] = edit_restaurant[i]
-            }
+            restaurants = Object.assign(restaurants, req.body)
             return restaurants.save()
         })
         .then(() => res.redirect(`restaurants/${_id}`))
@@ -89,16 +87,14 @@ app.post('/restaurants/:_id/delete', (req, res) => {
         .catch(error => console.log(error))
 })
 
-// app.get('/search', (req,res) => {
-//     const keyword = req.query.keyword
-//     restaurantList.find({ name: keyword})
-//         .lean()
-//         .then(restaurants =>{
-//             res.render('index', {restaurants: restaurants, keyword: keyword})
-//         } )
-//         .catch(error => console.log(error))
-
-// })
+app.get('/search', (req, res) => {
+  const { keyword } = req.query
+  return restaurantList.find({ $or: [{ name: new RegExp(keyword, 'i') }, { category: new RegExp(keyword, 'i') }] })
+    .lean()
+    .then(restaurants => {
+        res.render('index', { restaurants, keyword: req.query.keyword })
+    })
+})
 
 // Start and listen on express server
 app.listen(port, () => {
