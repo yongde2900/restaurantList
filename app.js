@@ -6,7 +6,7 @@ const restaurantList = require('./models/restaurant')
 const routes = require('./routes')
 require('./config/mongoose')
 const app = express()
-const port = 3000
+const port = 3000 || process.env.PORT
 
 // Require handlebars
 const exphbs =require('express-handlebars')
