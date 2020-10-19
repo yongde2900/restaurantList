@@ -49,7 +49,7 @@
             <div class="card-footer d-flex justify-content-end align-items-center">
               <a href="/restaurants/{{ this._id }}" class="mx-1">More</a>
               <a href="/restaurants/{{this._id}}/edit" class="mx-1">Edit</a>
-              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#deleteModal">
+              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#deleteModal-{{ this._id }}">
                 delete
               </button>
             </div>
@@ -57,7 +57,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteModal-{{ this._id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
