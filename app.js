@@ -15,8 +15,8 @@ const exphbs =require('express-handlebars')
 app.use(express.static('public'))
 
 // Setting template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set('view engine', 'handlebars')
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs'}))
+app.set('view engine', 'hbs')
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(routes)
