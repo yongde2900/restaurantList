@@ -36,6 +36,12 @@ const restaurantSchema = new Schema({
     phone:{
         type: String,
         required: false
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        index: true,
+        required: true
     }
     
 })
