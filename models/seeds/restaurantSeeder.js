@@ -16,7 +16,7 @@ db.once('open', () => {
         })
         .then( user => {
             restaurants.forEach(restaurants => {
-                if (restaurants.id <3 ){
+                if (restaurants.id < 4 ){
                     restaurants.userId = user[0]._id
                 }
                 else{
