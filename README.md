@@ -1,5 +1,7 @@
 # RestaurantList
 
+* 可以註冊帳號
+* 可以透過facebook登入
 * 可以對餐廳名稱與類別進行搜尋
 * 可以查看餐聽清單
 * 可以觀看餐廳詳細資料
@@ -16,6 +18,13 @@
 * Jquery v3.5.1
 * Popper
 * body-parse v0.1.0
+* bcryptjs v4.2.3
+* connect-glash v0.1.1
+* dotenv v8.2.0
+* express-session v1.17.1
+* passport v0.4.1
+* passport-facebook v3.0.0
+* passport-local v1.0.0
 # 安裝與執行步驟
 
   * 資料庫相關 
