@@ -8,13 +8,15 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    return restaurantList.create(req.body)
+    req.body.userId = req.user._id
+        return restaurantList.create(req.body)
         .then(() => res.redirect('/'))
         .catch(error => console.log(error))
 })
 router.get('/:_id', (req, res) => {
+    const userId = req.user._id
     const _id = req.params._id
-    restaurantList.findById(_id)
+    restaurantList.findOne({_id, userId})
         .lean()
         .then(restaurants => {
             // console.log(restaurants)
@@ -24,8 +26,9 @@ router.get('/:_id', (req, res) => {
 })
 
 router.get('/:_id/edit', (req, res) => {
+    const userId = req.user._id
     const _id = req.params._id
-    restaurantList.findById(_id)
+    restaurantList.findOne({_id, userId})
         .lean()
         .then(restaurants => {
             console.log(restaurants)
@@ -35,9 +38,10 @@ router.get('/:_id/edit', (req, res) => {
 })
 
 router.put('/:_id', (req, res) => {
+    const userId = req.user._id
     const _id = req.params._id
     let { name, name_en, category, phone, image, location, rating, google_map, description } = req.body
-    return restaurantList.findById(_id)
+    return restaurantList.findOne({_id, userId})
         .then(restaurant => {
             restaurant = Object.assign(restaurant, req.body)
             return restaurant.save()
@@ -48,7 +52,8 @@ router.put('/:_id', (req, res) => {
 
 router.delete('/:_id', (req, res) => {
     const _id = req.params._id
-    return restaurantList.findById(_id)
+    const userId = req.user._id
+    return restaurantList.findOne({_id, userId})
         .then(restaurants => restaurants.remove())
         .then(() => res.redirect('/'))
         .catch(error => console.log(error))

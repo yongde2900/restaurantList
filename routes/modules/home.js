@@ -3,7 +3,8 @@ const router = express.Router()
 const restaurantList = require('../../models/restaurant')
 
 router.get('/', (req, res) => {
-    restaurantList.find()
+    const userId = req.user._id
+    restaurantList.find({userId})
         .lean()
         .sort({ _id: 'asc' })
         .then( restaurants => {
