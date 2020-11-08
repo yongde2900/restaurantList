@@ -6,6 +6,7 @@ const restaurantList = require('./models/restaurant')
 const routes = require('./routes')
 const session = require('express-session')
 const passport = require('passport')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -27,6 +28,9 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs'}))
 app.set('view engine', 'hbs')
 
 app.use(bodyParser.urlencoded({extended: true}))
+
+usePassport(app)
+
 app.use(routes)
 // Start and listen on express server
 app.listen(PORT, () => {
