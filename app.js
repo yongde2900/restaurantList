@@ -4,9 +4,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const restaurantList = require('./models/restaurant')
 const routes = require('./routes')
+const session = require('express-session')
+const passport = require('passport')
 require('./config/mongoose')
 const app = express()
 const PORT = process.env.PORT || 3000
+
+app.use(session({
+    secret: 'MySecret',
+    resave: false,
+    saveUninitialized: true
+}))
 
 // Require handlebars
 const exphbs =require('express-handlebars')
