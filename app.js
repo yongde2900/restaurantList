@@ -31,14 +31,15 @@ app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({extended: true}))
 
 usePassport(app)
-
+app.use(flash())
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.isAuthenticated()
-    res.user = req.user
+    res.locals.user = req.user
+    res.locals.success_msg = req.flash('success_msg')
+    res.locals.warning_msg = req.flash('warning_msg')
+    res.locals.error = req.flash('error')
     next()
 })
-
-app.use(flash())
 
 
 app.use(routes)
