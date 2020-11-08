@@ -1,21 +1,32 @@
-const { static } = require('express')
 const db = require('../../config/mongoose')
-const Restaurant = require('../restaurant')
-const restaurantList = require('../restaurant.json').results
+const User =require('../user')
+const Restaurant =require('../restaurant')
+const bcrypt = require('bcryptjs')
+const restaurants = require('../restaurant.json').results
+const user = require('../user.json').result
+
 db.once('open', () => {
-    for(let i = 0; i < restaurantList.length; i++){
-        Restaurant.create({
-            id: restaurantList[i].id,
-            name: restaurantList[i].name,
-            name_en: restaurantList[i].name_en,
-            category: restaurantList[i].category,
-            image: restaurantList[i].image,
-            location: restaurantList[i].location,
-            phone: restaurantList[i].phone,
-            google_map: restaurantList[i].google_map,
-            rating: restaurantList[i].rating,
-            description: restaurantList[i].description
+    bcrypt.genSalt(10)
+        .then(salt => bcrypt.hash(user[0].password, salt))
+        .then(hash => {
+            user.forEach(user => {
+                user.password = hash
+            })
+            return User.insertMany(user)
         })
-    }
-    console.log('done')
+        .then( user => {
+            restaurants.forEach(restaurants => {
+                if (restaurants.id <3 ){
+                    restaurants.userId = user[0]._id
+                }
+                else{
+                    restaurants.userId = user[1]._id
+                }
+            })
+            return Restaurant.insertMany(restaurants)
+        })
+        .then(() => {
+            console.log('Done')
+            process.exit()
+        })
 })
