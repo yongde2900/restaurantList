@@ -7,6 +7,7 @@ const routes = require('./routes')
 const session = require('express-session')
 const passport = require('passport')
 const usePassport = require('./config/passport')
+const flash = require('connect-flash')
 require('./config/mongoose')
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -30,6 +31,9 @@ app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({extended: true}))
 
 usePassport(app)
+
+app.use(flash())
+
 
 app.use(routes)
 // Start and listen on express server
