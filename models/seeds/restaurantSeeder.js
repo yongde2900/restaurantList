@@ -4,9 +4,10 @@ const Restaurant =require('../restaurant')
 const bcrypt = require('bcryptjs')
 const restaurants = require('../restaurant.json').results
 const user = require('../user.json').result
+const saltRounds = 10
 
 db.once('open', () => {
-    bcrypt.genSalt(10)
+    bcrypt.genSalt(saltRounds)
         .then(salt => bcrypt.hash(user[0].password, salt))
         .then(hash => {
             user.forEach(user => {

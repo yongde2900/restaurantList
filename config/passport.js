@@ -3,6 +3,7 @@ const LocalStartegy = require('passport-local').Strategy
 const FacebookStartegy = require('passport-facebook').Strategy
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
+const saltRounds = 10
 module.exports = app => {
     //初始化passport模組
     app.use(passport.initialize())
@@ -19,7 +20,7 @@ module.exports = app => {
             .then(user => {
                 if (user) return done(null, user)
                 const randomPassword = Math.random().toString(36).slice(-8)
-                bcrypt.genSalt(10)
+                bcrypt.genSalt(saltRounds)
                     .then(salt => bcrypt.hash(randomPassword, salt))
                     .then(hash => User.create({name, email, password: hash}))
                     .then(user => done(null, user))
