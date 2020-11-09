@@ -40,7 +40,6 @@ router.get('/:_id/edit', (req, res) => {
 router.put('/:_id', (req, res) => {
     const userId = req.user._id
     const _id = req.params._id
-    let { name, name_en, category, phone, image, location, rating, google_map, description } = req.body
     return restaurantList.findOne({_id, userId})
         .then(restaurant => {
             restaurant = Object.assign(restaurant, req.body)
