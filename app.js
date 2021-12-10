@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 require('./config/mongoose')
 const app = express()
 const PORT = process.env.PORT
+const test = 'abc'
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
